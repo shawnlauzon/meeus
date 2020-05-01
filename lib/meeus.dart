@@ -6,23 +6,38 @@
 ///
 /// It requires Dart 2.0 or later.
 ///
-/// This library contains all of the mini-libraries included in this package.
-/// It is recommended that you import these mini-libraries rather than this
+/// This library `meeus` contains all of the mini-libraries included in this package.
+/// It is recommended that you import only the mini-libraries you need rather than this
 /// library, since the function names can be confusing across packages. For
 /// example:
 ///
 /// ```dart
-///   import 'package:meeus/julian' as julian;
-///   import 'package:meeus/moonillum' as moonillum;
+/// import 'package:meeus/julian.dart' as julian;
+/// import 'package:meeus/moonillum.dart' as moonillum;
 ///
+/// void main() {
 ///   print(moonillum.phaseAngle3(julian.dateTimeToJD(DateTime.now())));
+/// }
 /// ```
 ///
 /// This is a port of the original Go version by Sonia Keys, which can be
 /// found at https://github.com/soniakeys/meeus. Most function names and
-/// implementations are as close as possible to the original.
+/// implementations are as close as possible to the original. Cases where
+/// multiple values are returned have been replaced with classes. Capitalization
+/// has been adjusted to match Dart guidelines (using camelCase and _ for
+/// private functions).
 ///
-/// The text below is from the original.
+/// The text below is from the original. Much of it still applies; here are the
+/// changes to be aware of:
+///
+/// * Many functions which exist in the original Go code have not been ported
+/// to Dart.
+/// * *Package contents*: Each chapter is a Dart "mini-library".
+/// * *Identifiers*: Because unicode characters are not valid identifiers in dart, the greek
+/// letters are replaced by their latin spellings.
+/// * *Sexagesimal formatting*: The formatting package mentioned
+/// https://github.com/soniakeys/sexagesimal has not been ported to Dart, and
+/// there are no plans to do so.
 ///
 /// ## Library Goals
 ///
