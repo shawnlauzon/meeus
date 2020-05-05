@@ -4,11 +4,11 @@
 
 import 'base.dart' as base;
 
-// CalendarGregorianToJD converts a Gregorian year, month, and day of month
-// to Julian day.
-//
-// Negative years are valid, back to JD 0.  The result is not valid for
-// dates before JD 0.
+/// CalendarGregorianToJD converts a Gregorian year, month, and day of month
+/// to Julian day.
+///
+/// Negative years are valid, back to JD 0.  The result is not valid for
+/// dates before JD 0.
 num calendarGregorianToJD(int y, int m, double d) {
   switch (m) {
     case 1:
@@ -25,23 +25,25 @@ num calendarGregorianToJD(int y, int m, double d) {
       1524.5;
 }
 
-// jdToCalendarGregorian returns the Gregorian calendar date for the given jd.
-//
-// Note that it returns a Gregorian date even for dates before the start of
-// the Gregorian calendar.  The function is useful when working with Go
-// time.Time values because they are always based on the Gregorian calendar.
-CalendarGregorian jdToCalendarGregorian(num jd) {
-  final adjustedJd = jd + .5;
-  final z = adjustedJd.truncate();
-  final f = adjustedJd - z;
-  final alpha = base.floorDiv(z * 100 - 186721625, 3652425);
-  final a = z + 1 + alpha - base.floorDiv(alpha, 4);
+/// Returns the Gregorian calendar date for the given jd.
+///
+/// Note that it returns a Gregorian date even for dates before the start of
+/// the Gregorian calendar.
+Calendar jdToCalendar(num jd) {
+  final modfResult = base.modf(jd + .5);
+  final z = modfResult.intPart;
+  var a = z;
+  var alpha;
+  if (z >= 2299151) {
+    alpha = base.floorDiv(z * 100 - 186721625, 3652425);
+    a = z + 1 + alpha - base.floorDiv(alpha, 4);
+  }
   final b = a + 1524;
   final c = base.floorDiv(b * 100 - 12210, 36525);
   final d = base.floorDiv(36525 * c, 100);
   final e = base.floorDiv(((b - d) * 1e4).truncate(), 306001);
   // compute return values
-  final day = ((b - d) - base.floorDiv(306001 * e, 1e4)) + f;
+  final day = ((b - d) - base.floorDiv(306001 * e, 1e4)) + modfResult.fracPart;
   var month, year;
   switch (e) {
     case 14:
@@ -59,18 +61,49 @@ CalendarGregorian jdToCalendarGregorian(num jd) {
     default:
       year = c - 4716;
   }
-  return CalendarGregorian(year, month, day);
+  return Calendar(year, month, day);
 }
 
-class CalendarGregorian {
+class Calendar {
   final int year;
   final int month;
   final num day;
 
-  const CalendarGregorian(this.year, this.month, this.day);
+  const Calendar(this.year, this.month, this.day);
 }
 
-// JDToTime takes a JD and returns a Dart DateTime value.
+Calendar jdToCalendarGregorian(num jd) {
+  final modfResult = base.modf(jd + .5);
+  final z = modfResult.intPart;
+  final alpha = base.floorDiv(z * 100 - 186721625, 3652425);
+  final a = z + 1 + alpha - base.floorDiv(alpha, 4);
+  final b = a + 1524;
+  final c = base.floorDiv(b * 100 - 12210, 36525);
+  final d = base.floorDiv(36525 * c, 100);
+  final e = base.floorDiv(((b - d) * 1e4).truncate(), 306001);
+  // compute return values
+  final day = ((b - d) - base.floorDiv(306001 * e, 1e4)) + modfResult.fracPart;
+  var month, year;
+  switch (e) {
+    case 14:
+    case 15:
+      month = e - 13;
+      break;
+    default:
+      month = e - 1;
+  }
+  switch (month) {
+    case 1:
+    case 2:
+      year = c - 4715;
+      break;
+    default:
+      year = c - 4716;
+  }
+  return Calendar(year, month, day);
+}
+
+/// Takes a JD and returns a Dart DateTime value.
 DateTime jdToDateTime(num jd) {
   // DateTime is always Gregorian
   final cal = jdToCalendarGregorian(jd);
@@ -79,10 +112,10 @@ DateTime jdToDateTime(num jd) {
       Duration(seconds: (cal.day * 24 * Duration.secondsPerHour).truncate()));
 }
 
-// TimeToJD takes a Dart core.DateTime and returns a JD as a num.
-//
-// Any time zone offset in the DateTime is ignored and the time is
-// treated as UTC.
+/// Takes a Dart core.DateTime and returns a JD as a num.
+///
+/// Any time zone offset in the DateTime is ignored and the time is
+/// treated as UTC.
 num dateTimeToJD(DateTime dt) {
   var ut = dt.toUtc();
   var d = ut.difference(DateTime.utc(dt.year, dt.month, 0, 0, 0, 0, 0));
