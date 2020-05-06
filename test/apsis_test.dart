@@ -21,15 +21,25 @@ void main() {
     test('ExampleApogee', () {
       // Example 50.a, p. 357.
       final j = apsis.apogee(1988.75);
+      print(j);
       expect(j, closeTo(2447442.3543, precision4));
       final calendar = julian.jdToCalendar(j);
       final result = base.modf(calendar.day);
+      print(result.fracPart);
       expect(calendar.year, 1988);
       expect(calendar.month, 10);
       expect(result.intPart, 7);
-      expect(unit.Time.fromDay(result.fracPart).toIso8601String(),
-          startsWith('20:30'));
+      expect(unit.Time.fromDay(result.fracPart),
+          unit.Time.fromSexa(0, 20, 30, 12));
+      // Original Go test says this is the correct answer:
       // 1988 October 7, at 20ʰ30ᵐ TD
+      // However, the JD generated has a time of 20:30:12. Both tests return the
+      // same JD and other calculations; it seems that the sexa conversion used
+      // in the Go version is causing a problem.
+      //
+      // Using the JD calculator at https://www.aavso.org/jd-calculator
+      // and confirmed that JD 2447442.3543003574 (which is the correct answer)
+      // is in fact 20:30:12, as this test shows.
     });
 
     test('ExampleApogeeParallax', () {
