@@ -21,11 +21,9 @@ void main() {
     test('ExampleApogee', () {
       // Example 50.a, p. 357.
       final j = apsis.apogee(1988.75);
-      print(j);
       expect(j, closeTo(2447442.3543, precision4));
       final calendar = julian.jdToCalendar(j);
       final result = base.modf(calendar.day);
-      print(result.fracPart);
       expect(calendar.year, 1988);
       expect(calendar.month, 10);
       expect(result.intPart, 7);
