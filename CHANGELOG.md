@@ -1,3 +1,7 @@
+## 0.2.1 2020.05.09
+
+* Fix incorrectly named library
+
 ## 0.2.0 2020-05-09
 
 * Add apsis library

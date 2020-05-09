@@ -3,6 +3,6 @@
 // License: MIT
 
 /// Moonnode: Chapter 51, Passages of the Moon through the Nodes.
-library moonmaxdec;
+library moonnode;
 
 export 'src/moonnode.dart';
