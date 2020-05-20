@@ -1,6 +1,6 @@
 name: meeus
 description: Dart implementations of algorithms from the book "Astronomical Algorithms, 2nd edition" by Jean Meeus.
-version: 0.2.1
+version: 0.2.2
 homepage: https://github.com/shawnlauzon/meeus
 
 environment:
