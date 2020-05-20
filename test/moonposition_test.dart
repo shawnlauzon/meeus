@@ -7,8 +7,6 @@ import 'package:test/test.dart';
 import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/moonposition.dart' as moonposition;
 
-import 'test_utils.dart';
-
 void main() {
   group('Moon Position', () {
     setUp(() {});
@@ -18,9 +16,9 @@ void main() {
       final pos =
           moonposition.position(julian.calendarGregorianToJD(1992, 4, 12));
 
-      expect(pos.lambda.deg, closeTo(133.162655, precision6));
-      expect(pos.beta.deg, closeTo(-3.229126, precision6));
-      expect(pos.delta, closeTo(368409.7, precision1));
+      expect(pos.lambda.deg, closeTo(133.162655, 1e-6));
+      expect(pos.beta.deg, closeTo(-3.229126, 1e-6));
+      expect(pos.delta, closeTo(368409.7, 1e-1));
     });
   });
 }

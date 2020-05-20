@@ -8,10 +8,6 @@ import 'package:meeus/base.dart' as base;
 import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/moonillum.dart' as moonillum;
 
-import 'package:meeus/meeus.dart' show meanNewMoon;
-
-import 'test_utils.dart';
-
 void main() {
   group('Moon Illumination', () {
     setUp(() {});
@@ -70,8 +66,8 @@ void main() {
       final i =
           moonillum.phaseAngle3(julian.calendarGregorianToJD(1992, 4, 12));
       final k = base.illuminated(i);
-      expect(i.deg, closeTo(68.88, precision2));
-      expect(k, closeTo(0.6801, precision4));
+      expect(i.deg, closeTo(68.88, 1e-2));
+      expect(k, closeTo(0.6801, 1e-4));
     });
   });
 }

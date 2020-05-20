@@ -7,8 +7,6 @@ import 'package:test/test.dart';
 import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/nutation.dart' as nutation;
 
-import 'test_utils.dart';
-
 void main() {
   group('Nutation', () {
     setUp(() {});
@@ -21,10 +19,10 @@ void main() {
       final epsilon = epsilon0 + result.deltaEpsilon;
 
       // Values here manually converted from sexagesimal form below
-      expect(result.deltaPsi.deg, closeTo(-0.001052, precision6));
-      expect(result.deltaEpsilon.deg, closeTo(0.002623, precision6));
-      expect(epsilon0.deg, closeTo(23.440946, precision6));
-      expect(epsilon.deg, closeTo(23.443569, precision6));
+      expect(result.deltaPsi.deg, closeTo(-0.001052, 1e-6));
+      expect(result.deltaEpsilon.deg, closeTo(0.002623, 1e-6));
+      expect(epsilon0.deg, closeTo(23.440946, 1e-6));
+      expect(epsilon.deg, closeTo(23.443569, 1e-6));
 
       // Output:
       // -3″.788

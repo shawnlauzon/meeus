@@ -6,8 +6,6 @@ import 'package:test/test.dart';
 
 import 'package:meeus/julian.dart' as julian;
 
-import 'test_utils.dart';
-
 void main() {
   group('Julian', () {
     setUp(() {});
@@ -15,7 +13,7 @@ void main() {
     test('CalendarGregorianToJD_sputnik', () {
       // Example 7.a, p. 61.
       final jd = julian.calendarGregorianToJD(1957, 10, 4.81);
-      expect(jd, closeTo(2436116.31, precision2));
+      expect(jd, closeTo(2436116.31, 1e-2));
     });
 
     test('CalendarGregorianToJD_halley', () {

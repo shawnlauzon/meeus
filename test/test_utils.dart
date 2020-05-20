@@ -5,16 +5,6 @@ import 'package:test/test.dart';
 import 'package:meeus/julian.dart' as julian;
 import 'package:unit/unit.dart' as unit;
 
-const precision1 = 0.1;
-const precision2 = 0.01;
-const precision3 = 0.001;
-const precision4 = 0.0001;
-const precision5 = 0.00001;
-const precision6 = 0.000001;
-const precision7 = 0.0000001;
-const precision8 = 0.00000001;
-const precision9 = 0.000000001;
-
 Matcher closeToAngle(value, unit.Angle delta) => CloseToAngle(value, delta);
 Matcher closeToDateTime(value, Duration delta) => CloseToDateTime(value, delta);
 

@@ -10,18 +10,16 @@ import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/base.dart' as base;
 import 'package:meeus/moonposition.dart' as moonposition;
 
-import 'test_utils.dart';
-
 void main() {
   group('Apogee', () {
     test('ExampleMeanApogee', () {
-      expect(apsis.meanApogee(1988.75), closeTo(2447442.8191, precision4));
+      expect(apsis.meanApogee(1988.75), closeTo(2447442.8191, 1e-4));
     });
 
     test('ExampleApogee', () {
       // Example 50.a, p. 357.
       final j = apsis.apogee(1988.75);
-      expect(j, closeTo(2447442.3543, precision4));
+      expect(j, closeTo(2447442.3543, 1e-4));
       final calendar = julian.jdToCalendar(j);
       final result = base.modf(calendar.day);
       expect(calendar.year, 1988);
@@ -43,7 +41,7 @@ void main() {
     test('ExampleApogeeParallax', () {
       // Example 50.a, p. 357.
       final p = apsis.apogeeParallax(1988.75);
-      expect(p.sec, closeTo(3240.679, precision3));
+      expect(p.sec, closeTo(3240.679, 1e-3));
       expect(p, unit.Angle.fromSexa(0, 0, 54, .679));
     });
   });
@@ -60,7 +58,7 @@ void main() {
       data.forEach((c) {
         final ref = julian.calendarGregorianToJD(c.y, c.m, c.d);
         final j = apsis.perigee(c.dy);
-        expect(j, closeTo(ref, precision1));
+        expect(j, closeTo(ref, 1e-1));
       });
     });
 
@@ -71,7 +69,7 @@ void main() {
       final want = moonposition.parallax(pos.delta);
 
       // for this case anyway it's within a tenth of an arc second
-      expect(got.rad, closeTo(want.rad, precision1));
+      expect(got.rad, closeTo(want.rad, 1e-1));
     });
   });
 }

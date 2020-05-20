@@ -9,8 +9,6 @@ import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/solar.dart' as solar;
 import 'package:unit/unit.dart' as unit;
 
-import 'test_utils.dart';
-
 void main() {
   group('Solar', () {
     setUp(() {});
@@ -20,34 +18,34 @@ void main() {
       final jd = julian.calendarGregorianToJD(1992, 10, 13);
       expect(jd, 2448908.5);
       final t = base.j2000Century(jd);
-      expect(t, closeTo(-0.072183436, precision9));
+      expect(t, closeTo(-0.072183436, 1e-9));
       final sv = solar.trueCoordinates(t);
-      expect(sv.s.deg, closeTo(199.90987, precision5));
+      expect(sv.s.deg, closeTo(199.90987, 1e-5));
     });
 
     test('Mean Anomaly', () {
       // Example 25.a, p. 165.
       final T = base.j2000Century(julian.calendarGregorianToJD(1992, 10, 13));
-      expect(solar.meanAnomaly(T).deg, closeTo(-2241.00603, precision5));
+      expect(solar.meanAnomaly(T).deg, closeTo(-2241.00603, 1e-5));
     });
 
     test('Eccentricity', () {
       // Example 25.a, p. 165.
       final T = base.j2000Century(julian.calendarGregorianToJD(1992, 10, 13));
-      expect(solar.eccentricity(T), closeTo(0.016711668, precision9));
+      expect(solar.eccentricity(T), closeTo(0.016711668, 1e-9));
     });
 
     test('Radius', () {
       // Example 25.a, p. 165.
       final T = base.j2000Century(julian.calendarGregorianToJD(1992, 10, 13));
-      expect(solar.radius(T), closeTo(0.99766, precision5));
+      expect(solar.radius(T), closeTo(0.99766, 1e-5));
     });
 
     test('Apparent Longitude', () {
       // Example 25.a, p. 165.
       final T = base.j2000Century(julian.calendarGregorianToJD(1992, 10, 13));
       expect(solar.apparentLongitude(T).deg,
-          closeTo(unit.Angle(unit.fromSexa(' ', 199, 54, 32)).rad, precision4));
+          closeTo(unit.Angle(unit.fromSexa(' ', 199, 54, 32)).rad, 1e-4));
     });
 
 // func ExampleApparentEquatorial() {
