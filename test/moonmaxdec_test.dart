@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'package:meeus/julian.dart' as julian;
 import 'package:meeus/moonmaxdec.dart' as moonmaxdec;
 
-import 'test_utils.dart';
+import 'matchers.dart';
 
 void main() {
   group('Moon Maximum Declination', () {

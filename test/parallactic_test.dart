@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:unit/unit.dart' as unit;
 import 'package:meeus/parallactic.dart' as parallactic;
 
-import 'test_utils.dart';
+import 'matchers.dart';
 
 void main() {
   group('Parallactic', () {
