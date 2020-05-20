@@ -21,15 +21,18 @@ void main() {
       final theta = unit.Time.fromHour(5);
       final result = parallactic.eclipticAtHorizon(epsilon, phi, theta);
 
-      // Values here manually converted from sexagesimal form below
-      expect(result.lambda1.deg, closeTo(169.35830, precision4));
-      expect(result.lambda2.deg, closeTo(349.35835, precision4));
-      expect(result.i.deg, closeTo(61.88722, precision4));
-
-      // Output:
-      // 169°21′30″
-      // 349°21′30″
-      // 61°53′14″
+      expect(
+          result.lambda1,
+          closeToAngle(unit.Angle.fromSexa('', 169, 21, 30),
+              const unit.Angle.fromDeg(1)));
+      expect(
+          result.lambda2,
+          closeToAngle(unit.Angle.fromSexa('', 349, 21, 30),
+              const unit.Angle.fromDeg(1)));
+      expect(
+          result.i,
+          closeToAngle(unit.Angle.fromSexa('', 61, 53, 14),
+              const unit.Angle.fromDeg(1)));
     });
 
     test('Diurnal path at Horizon', () {

@@ -3,6 +3,7 @@
 
 import 'package:test/test.dart';
 import 'package:meeus/julian.dart' as julian;
+import 'package:unit/unit.dart' as unit;
 
 const precision1 = 0.1;
 const precision2 = 0.01;
@@ -14,6 +15,7 @@ const precision7 = 0.0000001;
 const precision8 = 0.00000001;
 const precision9 = 0.000000001;
 
+Matcher closeToAngle(value, unit.Angle delta) => CloseToAngle(value, delta);
 Matcher closeToDateTime(value, Duration delta) => CloseToDateTime(value, delta);
 
 class CloseToDateTime extends Matcher {
@@ -56,6 +58,36 @@ class CloseToDateTime extends Matcher {
       mismatchDescription
           .add('Is DateTime: ${matchState['dateTime'].toIso8601String()}');
     }
+    return mismatchDescription;
+  }
+}
+
+class CloseToAngle extends Matcher {
+  final unit.Angle _angle;
+  final unit.Angle _delta;
+
+  CloseToAngle(value, this._delta) : _angle = value;
+
+  @override
+  bool matches(item, Map matchState) {
+    assert(item is unit.Angle);
+
+    return (_angle - item).abs() <= _delta;
+  }
+
+  @override
+  Description describe(Description description) {
+    return description.add(
+        'an Angle within <${_delta.rad.toStringAsFixed(4)} rad> / <${_delta.deg.toStringAsFixed(4)}°> '
+        'of <${_angle.rad.toStringAsFixed(4)} rad> / <${_angle.deg.toStringAsFixed(4)}°>');
+  }
+
+  @override
+  Description describeMismatch(dynamic item, Description mismatchDescription,
+      Map matchState, bool verbose) {
+    mismatchDescription.add(
+        'differs by <${(item.rad - _angle.rad).abs()} rad> / <${(item.deg - _angle.deg).abs()}°>');
+
     return mismatchDescription;
   }
 }
