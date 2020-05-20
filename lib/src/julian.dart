@@ -72,7 +72,7 @@ class Calendar {
   const Calendar(this.year, this.month, this.day);
 }
 
-Calendar jdToCalendarGregorian(num jd) {
+Calendar _jdToCalendarGregorian(num jd) {
   final modfResult = base.modf(jd + .5);
   final z = modfResult.intPart;
   final alpha = base.floorDiv(z * 100 - 186721625, 3652425);
@@ -106,7 +106,7 @@ Calendar jdToCalendarGregorian(num jd) {
 /// Takes a JD and returns a Dart DateTime value.
 DateTime jdToDateTime(num jd) {
   // DateTime is always Gregorian
-  final cal = jdToCalendarGregorian(jd);
+  final cal = _jdToCalendarGregorian(jd);
   final dt = DateTime.utc(cal.year, cal.month, 0, 0, 0, 0, 0);
   return dt.add(
       Duration(seconds: (cal.day * 24 * Duration.secondsPerHour).truncate()));
@@ -117,9 +117,12 @@ DateTime jdToDateTime(num jd) {
 /// Any time zone offset in the DateTime is ignored and the time is
 /// treated as UTC.
 num dateTimeToJD(DateTime dt) {
-  var ut = dt.toUtc();
-  var d = ut.difference(DateTime.utc(dt.year, dt.month, 0, 0, 0, 0, 0));
-  // time.Time is always Gregorian
-  return calendarGregorianToJD(dt.year, dt.month,
-      d.inMilliseconds / (24 * Duration.millisecondsPerHour));
+  return calendarGregorianToJD(
+      dt.year,
+      dt.month,
+      dt.day +
+          dt.hour / Duration.hoursPerDay +
+          dt.minute / Duration.minutesPerDay +
+          dt.second / Duration.secondsPerDay +
+          dt.millisecond / Duration.millisecondsPerDay);
 }
