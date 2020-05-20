@@ -20,32 +20,9 @@ in the book but are useful with multiple other libraries.
 
 ## Install
 
-### 1. Depend on it
+See installation instructions on [pub.dev](https://pub.dev/packages/meeus#-installing-tab-)
 
-Add this to your package's pubspec.yaml file:
-
-```yaml
-dependencies:
-  meeus: <newest>
-```
-
-### 2. Install it
-
-Install the package from the command line:
-
-```
-$ pub get
-```
-
-### 3. Import it
-
-Add to your dart code:
-
-```dart
-import 'package:meeus/meeus.dart';
-```
-
-or (recommended), import only the libraries you need
+We recommend only importing the libraries you need:
 
 ```dart
 import 'package:meeus/julian.dart' as julian;
