@@ -11,7 +11,7 @@ import 'base.dart' as base;
 const _ck = 1 / 1236.85;
 
 /// (49.1) p. 349
-double _mean(double T) {
+num _mean(num T) {
   return base.horner(T,
       [2451550.09766, 29.530588861 / _ck, .00015437, -.00000015, .00000000073]);
 }
@@ -94,14 +94,14 @@ num last(num year) {
 }
 
 class _MoonPhase {
-  double k, T;
-  double E, M, MPrime, F, omega;
-  List<double> A = List(14);
+  num k, T;
+  num E, M, MPrime, F, omega;
+  List<num> A = List(14);
 
   _MoonPhase({this.k});
 
   /// new or full corrections
-  double _nfc(List<double> c) {
+  num _nfc(List<num> c) {
     return c[0] * math.sin(MPrime) +
         c[1] * math.sin(M) * E +
         c[2] * math.sin(2 * MPrime) +
@@ -130,7 +130,7 @@ class _MoonPhase {
   }
 
   /// first or last corrections
-  double _flc() {
+  num _flc() {
     return -.62801 * math.sin(MPrime) +
         .17172 * math.sin(M) * E +
         -.01183 * math.sin(MPrime + M) * E +
@@ -158,7 +158,7 @@ class _MoonPhase {
         -.00002 * math.sin(3 * MPrime + M);
   }
 
-  double _w() {
+  num _w() {
     return .00306 -
         .00038 * E * math.cos(M) +
         .00026 * math.cos(MPrime) -
@@ -167,7 +167,7 @@ class _MoonPhase {
   }
 
   /// additional corrections
-  double _a() {
+  num _a() {
     var a = .0;
     for (var i = 0; i < _ac.length; i++) {
       a += _ac[i] * math.sin(A[i]);

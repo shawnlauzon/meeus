@@ -9,7 +9,7 @@ import 'base.dart' as base;
 ///
 /// Negative years are valid, back to JD 0.  The result is not valid for
 /// dates before JD 0.
-num calendarGregorianToJD(int y, int m, double d) {
+num calendarGregorianToJD(int y, int m, num d) {
   switch (m) {
     case 1:
     case 2:

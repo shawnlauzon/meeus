@@ -4,7 +4,7 @@
 
 /// Evaluates a polynomal with coefficients c at x.  The constant
 /// term is [c.first].  The function panics with an empty coefficient list.
-double horner(double x, List<double> c) {
+num horner(num x, List<num> c) {
   var i = c.length - 1;
   var y = c[i];
   while (i > 0) {

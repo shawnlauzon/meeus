@@ -26,7 +26,7 @@ const julianCentury = 36525; // days
 /// Returns the number of Julian centuries since J2000.
 ///
 /// The quantity appears as T in a number of time series.
-double j2000Century(double jde) {
+num j2000Century(num jde) {
   // The formula is given in a number of places in the book, for example
   // (12.1) p. 87.
   // (22.1) p. 143.

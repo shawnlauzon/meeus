@@ -47,7 +47,7 @@ unit.Angle meanAnomaly(num t) {
 ///
 /// Argument [t] is the number of Julian centuries since J2000.
 /// See base.J2000Century.
-double eccentricity(double t) {
+num eccentricity(num t) {
   // (25.4) p. 163
   return base.horner(t, [0.016708634, -0.000042037, -0.0000001267]);
 }
@@ -56,7 +56,7 @@ double eccentricity(double t) {
 ///
 /// Argument [t] is the number of Julian centuries since J2000.
 /// See base.J2000Century.
-double radius(double t) {
+num radius(num t) {
   final result = trueCoordinates(t);
   final e = eccentricity(t);
   // (25.5) p. 164
@@ -78,7 +78,7 @@ unit.Angle apparentLongitude(num t) {
       unit.Angle.fromDeg(.00478).mul(omega.sin());
 }
 
-unit.Angle node(double t) {
+unit.Angle node(num t) {
   return unit.Angle.fromDeg(125.04 - 1934.136 * t);
 }
 

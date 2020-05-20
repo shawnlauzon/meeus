@@ -15,7 +15,7 @@ class Position {
   final unit.Angle beta;
 
   /// Distance between centers of the Earth and Moon, in km.
-  final double delta;
+  final num delta;
 
   const Position(this.lambda, this.beta, this.delta);
 }
@@ -23,7 +23,7 @@ class Position {
 /// Parallax returns equatorial horizontal parallax of the Moon.
 ///
 /// Argument delta is distance between centers of the Earth and Moon, in km.
-unit.Angle parallax(double delta) {
+unit.Angle parallax(num delta) {
   // p. 337
   return unit.Angle(math.asin(6378.14 / delta));
 }
@@ -31,15 +31,15 @@ unit.Angle parallax(double delta) {
 const _p = math.pi / 180;
 
 class _Dmf {
-  final double d;
-  final double m;
-  final double mPrime;
-  final double f;
+  final num d;
+  final num m;
+  final num mPrime;
+  final num f;
 
   const _Dmf(this.d, this.m, this.mPrime, this.f);
 }
 
-_Dmf _dmf(double t) {
+_Dmf _dmf(num t) {
   final d = base.horner(t, [
     297.8501921 * _p,
     445267.1114034 * _p,
@@ -70,7 +70,7 @@ _Dmf _dmf(double t) {
 ///
 /// Results are referenced to mean equinox of date and do not include
 /// the effect of nutation.
-Position position(double jde) {
+Position position(num jde) {
   var T = base.j2000Century(jde);
   var lPrime = base.horner(T, [
     218.3164477 * _p,

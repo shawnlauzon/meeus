@@ -9,7 +9,7 @@ import 'package:unit/unit.dart' as unit;
 /// The illuminated body can be the Moon or a planet.
 ///
 /// Argument [i] is the phase angle.
-double illuminated(unit.Angle i) {
+num illuminated(unit.Angle i) {
   // (41.1) p. 283, also (48.1) p. 345.
   return (1 + i.cos()) * .5;
 }

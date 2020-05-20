@@ -32,7 +32,7 @@ class CloseToDateTime extends Matcher {
   @override
   bool matches(item, Map matchState) {
     var dateTime;
-    if (item is double) {
+    if (item is num) {
       // assume JD
       _isJD = true;
       dateTime = julian.jdToDateTime(item);
