@@ -38,7 +38,7 @@ const _p = math.pi / 180;
 
 Declination _max(num y, _Mc c) {
   var k = (y - 2000.03) * 13.3686; // (52.1) p. 367
-  k = (k + .5).floor();
+  k = (k + .5).floor() as double;
   const ck = 1 / 1336.86;
   final T = k * ck;
   final D = base
@@ -149,7 +149,14 @@ class _Mc {
   final List<num> dc;
 
   const _Mc(
-      {this.D, this.M, this.M_, this.F, this.JDE, this.s, this.tc, this.dc});
+      {required this.D,
+      required this.M,
+      required this.M_,
+      required this.F,
+      required this.JDE,
+      required this.s,
+      required this.tc,
+      required this.dc});
 }
 
 // north coefficients

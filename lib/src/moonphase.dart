@@ -94,11 +94,11 @@ num last(num year) {
 }
 
 class _MoonPhase {
-  num k, T;
-  num E, M, MPrime, F, omega;
-  List<num> A = List(14);
+  late num k, T;
+  late num E, M, MPrime, F, omega;
+  List<num> A = List.filled(14, 0);
 
-  _MoonPhase({this.k});
+  _MoonPhase({required this.k});
 
   /// new or full corrections
   num _nfc(List<num> c) {
