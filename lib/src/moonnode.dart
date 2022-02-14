@@ -27,7 +27,7 @@ num descending(num year) {
 }
 
 num _node(num y, num h) {
-  var k = (y - 2000.05) * 13.4223; // (50.1) p. 355
+  num k = (y - 2000.05) * 13.4223; // (50.1) p. 355
   k = (k - h + .5).floor() + h; // snap to half orbit
   const p = math.pi / 180;
   const ck = 1 / 1342.23;

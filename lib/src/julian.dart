@@ -33,7 +33,7 @@ Calendar jdToCalendar(num jd) {
   final modfResult = base.modf(jd + .5);
   final z = modfResult.intPart;
   var a = z;
-  var alpha;
+  int alpha;
   if (z >= 2299151) {
     alpha = base.floorDiv(z * 100 - 186721625, 3652425);
     a = z + 1 + alpha - base.floorDiv(alpha, 4);
